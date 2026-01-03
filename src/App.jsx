@@ -306,10 +306,7 @@ export default function App() {
           {requests.map((req, idx) => (
             <div
               key={req.id}
-              onClick={() => {
-                setActiveIndex(idx);
-                if (window.innerWidth < 1024) setIsSidebarOpen(false);
-              }}
+              onClick={() => setActiveIndex(idx)}
               className={`group p-4 text-sm transition-all relative 
                 ${
                   activeIndex === idx
