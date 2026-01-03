@@ -13,7 +13,7 @@ export default function App() {
     {
       id: 1,
       name: "Get User Data",
-      endpoint: "/users/{{userId}}",
+      endpoint: "{{baseUrl}}/users/{{userId}}",
       method: "GET",
       bodyType: "none",
       headers: "{}",
@@ -199,12 +199,9 @@ export default function App() {
           options.body = urlEncoded;
         }
       }
-      const rawBase = parseVariables("{{baseUrl}}");
-      const processedEndpoint = parseVariables(currentReq.endpoint);
-      const fullUrl = `${rawBase.replace(
-        /\/$/,
-        ""
-      )}/${processedEndpoint.replace(/^\//, "")}`;
+
+      const fullUrl = parseVariables(currentReq.endpoint);
+
       const start = performance.now();
       const res = await fetch(fullUrl, options);
       const end = performance.now();
@@ -485,7 +482,7 @@ export default function App() {
               </div>
               <input
                 className="flex-1 bg-slate-800 rounded px-6 py-4 text-white font-mono text-sm outline-none placeholder:text-slate-600"
-                placeholder="Enter endpoint URL"
+                placeholder="Enter endpoint URL (e.g. {{baseUrl}}/users)"
                 value={currentReq.endpoint}
                 onChange={(e) => updateCurrentReq({ endpoint: e.target.value })}
               />
